@@ -1,6 +1,7 @@
 import configparser
 import os
 import time
+import processes_list
 
 import psutil
 
@@ -107,7 +108,7 @@ class Main:
     def managetdp(self):   # sudo ryzenadj -a 50000 -c 50000 -b 50000 -g 40000 -k 100000
         if self.data['tdp']['mode'] == 'normal': # data = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) for x in os.popen('ps h -eo pid:1,command')]]
 
-            sorted(self.data['tdp']['list'], key=lambda x: int(x[0]), reverse=True)
+            self.data['tdp']['list'].sort(reverse=True)
             if int(self.data['tdp']['list'][0]) == self.data['tdp']['current']:
                 pass
             else :
@@ -117,7 +118,7 @@ class Main:
             rz.set('tdp', int(self.config['CONFIG']['max_tdp']))
     def managetmp(self):
         if self.data['tmp']['mode'] == 'normal':  # data = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) for x in os.popen('ps h -eo pid:1,command')]]
-            sorted(self.data['tmp']['list'], key=lambda x: int(x[0]), reverse=True)
+            self.data['tmp']['list'].sort(reverse=True)
             if int(self.data['tmp']['list'][0]) == self.data['tmp']['current']:
                 pass
             else:
@@ -131,11 +132,11 @@ class Main:
         tdplist = []
         tmplist = []
         for i in range(len(processes)): # will create a list of the different tdps
-            if processes[i][1] in self.config['APPSTDP']:
-                tdplist.append(self.config['APPSTDP'][processes[i][1]])
-        for i in range(len(processes)):  # will create a list of the different tdps
-            if processes[i][1] in self.config['APPSTMP']:
-                tmplist.append(self.config['APPSTMP'][processes[i][1]])
+            if str(processes[i][1]) in processes_list.appstdp:
+                tdplist.append(processes_list.appstdp[processes[i][1]])
+        for i in range(len(processes)):  # will create a list of the different tmps
+            if str(processes[i][1]) in processes_list.appstmp:
+                tmplist.append(processes_list.appstmp[processes[i][1]])
 
         self.data['tdp']['list'] = tdplist
         self.data['tmp']['list'] = tmplist
