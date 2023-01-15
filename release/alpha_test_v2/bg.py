@@ -7,7 +7,7 @@ import psutil
 import ryzen_ctrl as rz
 from threading import Thread
 
-max_read_retry = 10   # TOddo: IMPLEMENT SOMETHING TO PAUSE AND UNPAUSE TASKS WITH STOP SIGNAL AND COUNT SIGNAL
+max_read_retry = 10   # TODddO: IMPLEMENT SOMETHING TO PAUSE AND UNPAUSE TASKS WITH STOP SIGNAL AND COUNT SIGNAL
 
 class Main:
     def __init__(self):

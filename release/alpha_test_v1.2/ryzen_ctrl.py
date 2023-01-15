@@ -91,8 +91,6 @@ def set(data, value):  # all in MHz
             else:
                 if int(value) > 25001:
                     os.system('ryzenadj --stapm-limit=' + str(value) + ' --fast-limit=' + str(value) + ' --slow-limit=' + str(value) + '-g 100000 -k 200000') # if you want some more power , will unlock the amp limit, BE CAREFULL
-                else :
-                    os.system('ryzenadj --stapm-limit=' + str(value) + ' --fast-limit=' + str(value) + ' --slow-limit=' + str(value))
         else:
             return 1
     else:

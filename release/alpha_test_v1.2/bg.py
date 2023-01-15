@@ -5,9 +5,8 @@ import time
 import psutil
 
 import ryzen_ctrl as rz
-from threading import Thread
 
-max_read_retry = 10   # TOddo: IMPLEMENT SOMETHING TO PAUSE AND UNPAUSE TASKS WITH STOP SIGNAL AND COUNT SIGNAL
+max_read_retry = 10   # TOddO: IMPLEMENT SOMETHING TO PAUSE AND UNPAUSE TASKS WITH STOP SIGNAL AND COUNT SIGNAL
 
 class Main:
     def __init__(self):
@@ -26,16 +25,9 @@ class Main:
                 'timer': 0.2
             },
             'tdp': {
-                'current': 10000,
-                'mode': 'normal',
-                'list' : []
-            },
-            'tmp': {
-                'current': 65,
-                'mode': 'normal',
-                'list': []
+                'curent': 10,
+                'mode': 'normal'
             }
-
         }
         print('initing?')
         self.config = configparser.ConfigParser()
@@ -106,42 +98,9 @@ class Main:
 
     def managetdp(self):   # sudo ryzenadj -a 50000 -c 50000 -b 50000 -g 40000 -k 100000
         if self.data['tdp']['mode'] == 'normal': # data = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) for x in os.popen('ps h -eo pid:1,command')]]
-
-            sorted(self.data['tdp']['list'], key=lambda x: int(x[0]), reverse=True)
-            if int(self.data['tdp']['list'][0]) == self.data['tdp']['current']:
-                pass
-            else :
-                self.data['tdp']['current'] = int(self.data['tdp']['list'][0])
-                rz.set('tdp', int(self.data['tdp']['current']))
+            pass
         elif self.data['tdp']['mode'] == 'turbo':
             rz.set('tdp', int(self.config['CONFIG']['max_tdp']))
-    def managetmp(self):
-        if self.data['tmp']['mode'] == 'normal':  # data = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) for x in os.popen('ps h -eo pid:1,command')]]
-            sorted(self.data['tmp']['list'], key=lambda x: int(x[0]), reverse=True)
-            if int(self.data['tmp']['list'][0]) == self.data['tmp']['current']:
-                pass
-            else:
-                self.data['tmp']['current'] = int(self.data['tmp']['list'][0])
-                rz.set('temp', int(self.data['tmp']['current']))
-        elif self.data['tmp']['mode'] == 'turbo':
-            rz.set('temp', int(self.config['CONFIG']['max_temp']))
-
-    def refreshprocess(self):
-        processes = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) for x in os.popen('ps h -eo pid:1,command')]]
-        tdplist = []
-        tmplist = []
-        for i in range(len(processes)): # will create a list of the different tdps
-            if processes[i][1] in self.config['APPSTDP']:
-                tdplist.append(self.config['APPSTDP'][processes[i][1]])
-        for i in range(len(processes)):  # will create a list of the different tdps
-            if processes[i][1] in self.config['APPSTMP']:
-                tmplist.append(self.config['APPSTMP'][processes[i][1]])
-
-        self.data['tdp']['list'] = tdplist
-        self.data['tmp']['list'] = tmplist
-
-
-
 
     def managecpucores(self, mode):
         if mode == '-':
@@ -158,16 +117,13 @@ class Main:
                     rz.corestate(i, 1)
                     print("core " + str(i + 1) + " online")
                     break
-    def tdptmp(self):
-        while True:
-            if self.data['tdp']['mode'] == 'normal':
-                self.refreshprocess()
-            if self.data['tmp']['mode'] == 'normal':
-                self.refreshprocess()
-            self.managetmp()
-            self.managetdp()
-            time.sleep(5)
-    def cores(self):
+
+    def main(self):
+        self.readinfo('full')
+
+        print("main starting")
+        print('nbcpu : ' + str(self.data['etc']['nbcpu']))
+
         while True:
             self.readinfo('min')
 
@@ -182,20 +138,8 @@ class Main:
                 self.managecpucores('+')
             else:
                 self.data['etc']['timer'] = 0.2
+
             time.sleep(self.data['etc']['timer'])
-
-    def main(self):
-        self.readinfo('full')
-
-        core_thread = Thread(target=self.cores)
-        other_thread = Thread(target=self.tdptmp)
-
-        core_thread.start()
-        other_thread.start()
-
-        core_thread.join()
-        other_thread.join()
-
 
 
 if __name__ == '__main__':
