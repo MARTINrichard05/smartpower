@@ -7,9 +7,11 @@ it is an python script that control the cpu power in a 'smart' way, depending on
 
 this way, you save power with almost no performance impact, ideal for laptops.
 ## requirements
-a cpu (i have a ryzen, but i think , it will work on a intel cpu)\
-linux\
-`cpupower` package (preinstalled on most distros)
+- a ryzen cpu
+
+- linux\
+- `cpupower` package (preinstalled on most distros)
+- `ryzenadj` if you have a ryzen cpu on a laptop , you have to install it for having the best experience
 ## usage
 not ready to be used
 ## license
