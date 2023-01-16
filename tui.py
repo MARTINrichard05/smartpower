@@ -1,15 +1,8 @@
-import configparser
+from multiprocessing.connection import Client
 
-config = configparser.ConfigParser()
-config['governors'] = {'ServerAliveInterval': '45',
-                     'Compression': 'yes',
-                     'CompressionLevel': '9'}
-config['bitbucket.org'] = {}
-config['bitbucket.org']['User'] = 'hg'
-config['topsecret.server.com'] = {}
-topsecret = config['topsecret.server.com']
-topsecret['Port'] = '50022'     # mutates the parser
-topsecret['ForwardX11'] = 'no'  # same here
-config['DEFAULT']['ForwardX11'] = 'yes'
-with open('example.ini', 'w') as configfile:
-  config.write(configfile)
+address = ('localhost', 6000)
+conn = Client(address, authkey=b'eogn68rb8r69')
+conn.send(input('t pa bo : '))
+# can also send arbitrary objects:
+# conn.send(['a', 2.5, None, int, sum])
+conn.close()

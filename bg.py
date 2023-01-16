@@ -2,6 +2,10 @@ import configparser
 import os
 import time
 import processes_list
+from multiprocessing.connection import Listener
+
+address = ('localhost', 6000)
+
 
 import psutil
 
@@ -39,6 +43,7 @@ class Main:
 
         }
         print('initing?')
+        self.listener = Listener(address, authkey=b'eogn68rb8r69')
         self.config = configparser.ConfigParser()
         self.data['etc']['nbcpu'] = self.detectcpu()
 
@@ -62,6 +67,23 @@ class Main:
                 else:
                     self.data['CORES'][i] = 0
             self.data['GOVERNORS']['current'] = rz.getinfo('governor')
+    def socket(self):
+        while True:
+            try :
+                conn = self.listener.accept()
+                print('connection accepted from', self.listener.last_accepted)
+                while True:
+                    msg = conn.recv()
+
+                    # do something with msg
+                    if msg == 'close':
+                        conn.close()
+                        break
+                    else :
+                        print(msg)
+                self.listener.close()
+            except :
+                pass
 
     def writecfg(self):
         sucess = 0
@@ -167,7 +189,7 @@ class Main:
                 self.refreshprocess()
             self.managetmp()
             self.managetdp()
-            time.sleep(5)
+            time.sleep(2)
     def cores(self):
         while True:
             self.readinfo('min')
@@ -190,11 +212,14 @@ class Main:
 
         core_thread = Thread(target=self.cores)
         other_thread = Thread(target=self.tdptmp)
+        socket_thread = Thread(target=self.socket)
 
         core_thread.start()
         other_thread.start()
+        socket_thread.start()
 
         core_thread.join()
+        other_thread.join()
         other_thread.join()
 
 
