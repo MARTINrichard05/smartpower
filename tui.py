@@ -24,13 +24,19 @@ class Main:
                 print('       turbo : turn all up to get maximum power (all *ratio , up to the cap)')
                 print('       normal : working normally as in config files and the process list')
                 print('       eco    : turn tdp down by the wanted ratio but keep temps normals')
-                print('       turn down max temp by the wanted ratio to be silent')
+                print('       silent : turn down max temp by the wanted ratio to be silent')
+                print('       manual : you can can manually set the params')
                 print('ratio : set the desired ratio for modes:')
                 print('       syntax : [mode] [ratio]')
-            if command[0] == 'mode':
+            elif command[0] == 'mode':
                 self.send(command[0] + ' ' + command[1])
-            if command[0] == 'ratio':
+            elif command[0] == 'ratio':
                 self.send(command[0] + ' ' + command[1] + ' ' + command[2])
+            elif command[0] == 'manual':
+                if command[1] == 'tdp' or command[1] == 'temp':
+                    self.send(command[0] + ' ' + command[1] + ' ' + command[2])
+
+
 
 if __name__ == '__main__':
     a = Main()

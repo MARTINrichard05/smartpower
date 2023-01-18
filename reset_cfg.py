@@ -13,7 +13,7 @@ data = {
     'etc': {
         'cpu_usage': 0.0,
         'timer': 0.2,
-        'modelist': ['normal', 'turbo', 'silent', 'eco'],
+        'modelist': ['normal', 'turbo', 'silent', 'eco', 'manual'],
         'mode': 'normal',
         'ratios': {
             'eco': 0.85,
@@ -36,6 +36,10 @@ data = {
         'high_usage': 70,
         'low_usage': 20,
         'min_active_cores': 2
+    },
+    'manual':{
+        'tdp': 10000,
+        'tmp': 70
     }
 }
 

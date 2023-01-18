@@ -58,10 +58,21 @@ class Main:
                         tempdata = msg.split(' ')
                         if tempdata[0] == 'mode':
                             if tempdata[1] in self.data['etc']['modelist']:
+                                print('found mode')
                                 self.data['etc']['mode'] = tempdata[1]
-                        if tempdata[0] == 'ratio' :
+                                self.writecfg()
+                        elif tempdata[0] == 'ratio' :
                             if tempdata[1] in self.data['etc']['modelist']:
                                 self.data['etc']['ratios'][tempdata[1]] = tempdata[2]
+                                self.writecfg()
+                        elif tempdata[0] == 'manual':
+                            if tempdata[1] == 'tdp':
+                                self.data['manual']['tdp'] = tempdata[2]
+                                self.writecfg()
+                            elif tempdata[1] == 'temp':
+                                self.data['manual']['tmp'] = tempdata[2]
+                                self.writecfg()
+
 
                 self.listener.close()
             except :
@@ -115,6 +126,12 @@ class Main:
             else:
                 self.data['tdp']['current'] = int(tmp)
                 rz.set('tdp', int(self.data['tdp']['current']))
+        elif self.data['etc']['mode'] == 'manual':
+            if int(self.data['manual']['tdp']) == self.data['tdp']['current']:
+                pass
+            else:
+                self.data['tdp']['current'] = int(self.data['manual']['tdp'])
+                rz.set('tdp', int(self.data['tdp']['current']))
     def managetmp(self):
         if self.data['etc']['mode'] == 'normal' or self.data['etc']['mode'] == 'eco':  # data = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) for x in os.popen('ps h -eo pid:1,command')]]
             self.data['tmp']['list'].sort(reverse=True)
@@ -141,30 +158,45 @@ class Main:
             else:
                 self.data['tmp']['current'] = int(tmp)
                 rz.set('temp', int(self.data['tmp']['current']))
+        elif self.data['etc']['mode'] == 'manual':
+            if int(self.data['manual']['tmp']) == self.data['tmp']['current']:
+                pass
+            else:
+                self.data['tmp']['current'] = int(self.data['manual']['tmp'])
+                rz.set('tmp', int(self.data['tmp']['current']))
 
     def refreshprocess(self):
         processes = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) for x in os.popen('ps h -eo pid:1,command')]]
         tdplist = []
         tmplist = []
+        coreslist = []
         for i in range(len(processes)): # will create a list of the different tdps
-            if str(processes[i][1]) in processes_list.appstdp:
-                tdplist.append(processes_list.appstdp[processes[i][1]])
-        for i in range(len(processes)):  # will create a list of the different tmps
-            if str(processes[i][1]) in processes_list.appstmp:
-                tmplist.append(processes_list.appstmp[processes[i][1]])
+            if str(processes[i][1]) in processes_list.custom_processes:
+                tdplist.append(processes_list.custom_processes[processes[i][1]]['tdp'])
+                tmplist.append(processes_list.custom_processes[processes[i][1]]['tmp'])
+                coreslist.append(processes_list.custom_processes[processes[i][1]]['min_active_cores'])
 
         self.data['tdp']['list'] = tdplist
         self.data['tmp']['list'] = tmplist
+        coreslist.sort(reverse=True)
+        self.data['other_config']['min_active_cores'] = coreslist[0]
 
     def managecpucores(self, mode):
-        if mode == '-':
+        if self.data['CORES'][self.data['other_config']['min_active_cores']-1] == 0:
+            for i in range(self.data['other_config']['min_active_cores']):
+                if self.data['CORES'][i] == 0:
+                    self.data['CORES'][i] = 1
+                    rz.corestate(i, 1)
+                    print("core " + str(i + 1) + " online")
+
+        elif mode == '-':
             for i in range(self.data['etc']['nbcpu'] - int(self.data['other_config']['min_active_cores']) + 1):
                 if self.data['CORES'][self.data['etc']['nbcpu'] - i] == 1:
                     self.data['CORES'][self.data['etc']['nbcpu'] - i] = 0
                     rz.corestate(self.data['etc']['nbcpu'] - i, 0)
                     print("core " + str(self.data['etc']['nbcpu'] - i + 1) + " offline")
                     break
-        elif mode == '+':
+        if mode == '+':
             for i in range(self.data['etc']['nbcpu'] + 1):
                 if self.data['CORES'][i] == 0:
                     self.data['CORES'][i] = 1
