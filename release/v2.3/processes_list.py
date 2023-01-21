@@ -14,6 +14,11 @@ custom_processes = {
     'C:\\Program Files\\Rockstar Games\\Launcher\\Launcher.exe' : {
         'tmp': 80,
         'tdp': 25000,
-        'min_active_cores': 10
+        'min_active_cores': 8
+    },
+    '/usr/lib/vmware/bin/vmplayer': {
+        'tmp': 73,
+        'tdp': 11000,
+        'min_active_cores': 8
     },
 }

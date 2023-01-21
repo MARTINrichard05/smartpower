@@ -1,5 +1,4 @@
 from multiprocessing.connection import Client
-import os
 
 address = ('localhost', 6000)
 #conn = Client(address, authkey=b'eogn68rb8r69')

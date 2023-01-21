@@ -229,17 +229,17 @@ class Main:
 
     def main(self):
         self.readinfo('full')
-        if self.data['other_config']['disable_cores'] == True:
-            core_thread = Thread(target=self.cores)
+
+        core_thread = Thread(target=self.cores)
         other_thread = Thread(target=self.tdptmp)
         socket_thread = Thread(target=self.socket)
 
-        if self.data['other_config']['disable_cores'] == True:
-            core_thread.start()
+
+        core_thread.start()
         other_thread.start()
         socket_thread.start()
-        if self.data['other_config']['disable_cores'] == True:
-            core_thread.join()
+
+        core_thread.join()
         other_thread.join()
         socket_thread.join()
 

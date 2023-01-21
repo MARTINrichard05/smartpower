@@ -3,7 +3,7 @@
 this project is in alpha test state, it might have some issues , for the best chances of having a working version go to releases and use the latest
 ## what is that ?
 it is an python script that control the cpu power in a 'smart' way, depending on multiples parameters, it can change :\
- - OPTIONNAL number of enabled cores
+ - number of enabled cores
  - max tdp
  - max temp
  - MAYBE , freeze background apps

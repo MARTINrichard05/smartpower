@@ -35,8 +35,7 @@ data = {
         'max_temp': 99,
         'high_usage': 70,
         'low_usage': 20,
-        'min_active_cores': 2,
-        'disable_cores': False
+        'min_active_cores': 2
     },
     'manual':{
         'tdp': 10000,
