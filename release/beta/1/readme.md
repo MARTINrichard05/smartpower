@@ -1,6 +1,6 @@
 # smartpower
 ## Warning !
-this project is in beta state , while it might work, it is not bug-free certified
+this project is in alpha test state, it might have some issues , for the best chances of having a working version go to releases and use the latest
 ## what is that ?
 it is an python script that control the cpu power in a 'smart' way, depending on multiples parameters, it can change :\
  - OPTIONNAL(not usefull, draw more energy) number of enabled cores
@@ -17,13 +17,7 @@ this way, you save power with the minimal performance impact, designed for ryzen
 - `cpupower` package (preinstalled on most distros)
 - `ryzenadj` if you have a ryzen cpu on a laptop , you have to install it for having the best experience
 ## usage
-### for now
-1 : grab the latest from release folder\
-2 : for a better "security" in the main class in bg.py you can change the authkey and do it too in tui\
-3 : run bg.py as root (i will create a systemd service to do it at boot)\
-3 : to control it or configure it, use tui.py, no need to have root access\
-### in future
-Maybe , i will create a script to automatically install it and create service
+not ready to be used by anyone, for me it works fine because i didnt find alternatives that satify me and i know how it works , if you want to try it out just go the the releases folder and grab the latest
 ## documentation
 i will write one when i have time and put comments in my code
 

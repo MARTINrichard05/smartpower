@@ -1,0 +1,13 @@
+this script can :
+- disable cores (disabled by default)
+- manage the cpu's tdp
+- manage the cpu's max temperature
+
+with the following parammeters :
+- cpu load (currently, just for cores enabling/disabling)
+- running processes
+
+this is the first beta version, this version is usable as it is, i did not notice major bugs
+for next versions i will try to create an update script to enable the update of the programm without losing the config or process list
+
+next release would be an "clean release" with maybe no new functions but just some documentation ans scripts to install it and update it easly
