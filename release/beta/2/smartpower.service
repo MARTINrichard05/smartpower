@@ -1,0 +1,9 @@
+[Unit]
+Description=the smartpower daemon
+
+[Service]
+Type=oneshot
+ExecStart=/bin/python /etc/smartpower/bg.py
+
+[Install]
+WantedBy=multi-user.target

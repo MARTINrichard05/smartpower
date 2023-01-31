@@ -2,10 +2,11 @@ import os
 import time
 from multiprocessing.connection import Listener
 import json
-import pathlib
-import psutil
 
 address = ('localhost', 6000)
+
+
+import psutil
 
 import ryzen_ctrl as rz
 from threading import Thread
@@ -17,10 +18,8 @@ class Main:
         self.data = {}
         print('initing?')
         self.listener = Listener(address, authkey=b'eogn68rb8r69')
-        self.path = str(pathlib.Path(__file__).parent.resolve())+'/'
         self.readcfg()
         self.data['etc']['nbcpu'] = self.detectcpu()
-
 
         self.readinfo('full')
 
@@ -84,9 +83,9 @@ class Main:
                 pass
 
     def writecfg(self):
-        with open(self.path+'data.json', 'w') as fp:
+        with open('data.json', 'w') as fp:
             json.dump(self.data, fp)
-        with open(self.path+'processes.json', 'w') as fp:
+        with open('processes.json', 'w') as fp:
             json.dump(self.custom_processes, fp)
 
     def detectcpu(self):
@@ -99,10 +98,10 @@ class Main:
                 return cpunb
 
     def readcfg(self):
-        with open(self.path+'data.json') as json_file:
+        with open('data.json') as json_file:
             data = json.load(json_file)
             self.data = data
-        with open(self.path+'processes.json') as json_file:
+        with open('processes.json') as json_file:
             data = json.load(json_file)
             self.custom_processes = data
 
