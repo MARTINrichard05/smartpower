@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from multiprocessing.connection import Client
 import os
 
