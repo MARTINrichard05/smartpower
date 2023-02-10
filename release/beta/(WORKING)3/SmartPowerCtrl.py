@@ -25,11 +25,14 @@ if command[1] == 'help':
     print('       syntax : add_proc [process] [tdp(mW)] [max temp(°C)]')
 elif command[1] == 'mode':
     conn.send(command[1] + ' ' + command[2])
+    print(conn.recv())
 elif command[1] == 'ratio':
     conn.send(command[1] + ' ' + command[2] + ' ' + command[3])
+    print(conn.recv())
 elif command[1] == 'manual':
     if command[1] == 'tdp' or command[1] == 'temp':
         conn.send(command[1] + ' ' + command[2] + ' ' + command[3])
+        print(conn.recv())
 elif command[1] == 'list_proc':
     proc = os.popen('ps h -eo command').read().rstrip().split('\n')
     try:
@@ -54,8 +57,9 @@ elif command[1] == 'add_proc':
         conn.send(command[4])
         print('sendt temp')
     print('command send')
+    print(conn.recv())
 elif command[1]== 'state':
     conn.send(command[1])
+    print(conn.recv())
 
-print(conn.recv())
 conn.close()

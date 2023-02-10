@@ -15,7 +15,6 @@ max_read_retry = 10   # TOddo: IMPLEMENT SOMETHING TO PAUSE AND UNPAUSE TASKS WI
 class Main:
     def __init__(self):
         self.data = {}
-        print('initing?')
         self.listener = Listener(address, authkey=b'eogn68rb8r69')
         self.path = str(pathlib.Path(__file__).parent.resolve())+'/'
         self.readcfg()
@@ -47,7 +46,6 @@ class Main:
         while True:
             try :
                 conn = self.listener.accept()
-                print('new connection')
                 while True:
                     msg = conn.recv()
 
@@ -57,23 +55,27 @@ class Main:
                         break
                     else :
                         tempdata = msg.split(' ')
-                        print(tempdata)
                         if tempdata[0] == 'mode':
                             if tempdata[1] in self.data['etc']['modelist']:
-                                print('found mode')
                                 self.data['etc']['mode'] = tempdata[1]
                                 self.writecfg()
+                                conn.send('200')
+                            else:
+                                conn.send('404')
                         elif tempdata[0] == 'ratio' :
                             if tempdata[1] in self.data['etc']['modelist']:
                                 self.data['etc']['ratios'][tempdata[1]] = tempdata[2]
                                 self.writecfg()
+                                conn.send('200')
                         elif tempdata[0] == 'manual':
                             if tempdata[1] == 'tdp':
                                 self.data['manual']['tdp'] = tempdata[2]
                                 self.writecfg()
+                                conn.send('200')
                             elif tempdata[1] == 'temp':
                                 self.data['manual']['tmp'] = tempdata[2]
                                 self.writecfg()
+                                conn.send('200')
                         elif tempdata[0] == 'add_proc':
                             conn.send('ready')
                             proc = conn.recv()
@@ -264,6 +266,7 @@ class Main:
             core_thread.start()
         other_thread.start()
         socket_thread.start()
+        print('running')
         if self.data['other_config']['disable_cores'] == True:
             core_thread.join()
         other_thread.join()
