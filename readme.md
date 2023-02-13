@@ -25,7 +25,7 @@ just run install.sh as root
 ### update
 just run update.sh as root
 ## documentation
-i will write one when i have time and put comments in my code
+i will write one when i have time and put comments in my code, 
 this is because in 3 weeks i'm gonna have my exams, after that i will be a bit more active
 
 ## license
