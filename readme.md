@@ -1,6 +1,8 @@
 # smartpower
 ## Warning !
 this project is in beta state , while it might work, it is not 100% bug-free certified
+## support
+ i d'ont guarantee you that i will help you but if there is any problem or question, just go to the issues section and ask for help, i will respond when i have time
 ## what is that ?
 it is an python script that control the cpu power in a 'smart' way, depending on multiples parameters, it can change :\
  - OPTIONNAL(not usefull, draw more energy) number of enabled cores
@@ -24,6 +26,7 @@ just run install.sh as root
 just run update.sh as root
 ## documentation
 i will write one when i have time and put comments in my code
+this is because in 3 weeks i'm gonna have my exams, after that i will be a bit more active
 
 ## license
 you can use my code in your project, just mention me in the credits, thanks
