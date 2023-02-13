@@ -86,23 +86,26 @@ class Main:
                             conn.send(self.custom_processes)
                             self.writecfg()
                         elif tempdata[0] == 'add_mode':
-                            conn.send('ready')
-                            name = conn.recv()
-                            conn.send('ready1')
-                            tdpr = conn.recv()
-                            conn.send('ready2')
-                            tmpr = conn.recv()
-                            conn.send('ready3')
-                            max_tdp = conn.recv()
-                            conn.send('ready4')
-                            max_tmp = conn.recv()
-                            conn.send('ready5')
-                            min_tdp = conn.recv()
-                            conn.send('ready6')
-                            min_tmp = conn.recv()
-                            self.modes[str(name)] = {'tdpr': int(tdpr), 'tmpr': int(tmpr),'max_tdp': int(max_tdp), 'max_tmp': int(max_tmp),'min_tdp': int(min_tdp), 'min_tmp': int(min_tmp),}
-                            conn.send(self.modes)
-                            self.writecfg()
+                            try:
+                                conn.send('ready')
+                                name = conn.recv()
+                                conn.send('ready1')
+                                tdpr = conn.recv()
+                                conn.send('ready2')
+                                tmpr = conn.recv()
+                                conn.send('ready3')
+                                max_tdp = conn.recv()
+                                conn.send('ready4')
+                                max_tmp = conn.recv()
+                                conn.send('ready5')
+                                min_tdp = conn.recv()
+                                conn.send('ready6')
+                                min_tmp = conn.recv()
+                                self.modes[str(name)] = {'tdpr': float(tdpr), 'tmpr': float(tmpr),'max_tdp': int(max_tdp), 'max_tmp': int(max_tmp),'min_tdp': int(min_tdp), 'min_tmp': int(min_tmp),}
+                                conn.send(self.modes)
+                                self.writecfg()
+                            except Exception as e:
+                                conn.send(e)
                         elif tempdata[0] == 'state':
                             conn.send(self.data)
 
@@ -137,7 +140,7 @@ class Main:
 
     def managetdp(self):  # sudo ryzenadj -a 50000 -c 50000 -b 50000 -g 40000 -k 100000
         self.data['tdp']['list'].sort(reverse=True)
-        current = int(self.data['tdp']['list'][0]) * int(self.modes[str(self.data['etc']['mode'])]['tdpr'])
+        current = int(int(self.data['tdp']['list'][0]) * float(self.modes[str(self.data['etc']['mode'])]['tdpr']))
         if current == self.data['tdp']['current']:
             pass
         else:
@@ -153,7 +156,7 @@ class Main:
 
     def managetmp(self):
         self.data['tmp']['list'].sort(reverse=True)
-        current = int(self.data['tmp']['list'][0]) * int(self.modes[str(self.data['etc']['mode'])]['tmpr'])
+        current = int(self.data['tmp']['list'][0]) * float(self.modes[str(self.data['etc']['mode'])]['tmpr'])
         if current == self.data['tmp']['current']:
             pass
         else:
