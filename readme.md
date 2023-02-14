@@ -27,7 +27,8 @@ use `SmartPowerCtrl.py` , the daemon is started automatically
 just run install.sh as root and when the service is loaded hit ctrl+C (it will be stuck)
 ### update
 just run update.sh as root and when the service is loaded hit ctrl+C (it will be stuck)
-this will update core components but not the config files (until beta 6, in that version i will implement a config file versioning system and put processes data and presets in one file)
+to update from version before beta 6 to beta 6 or upper you have to run `update_configs.py` too as root to keep your settings and put them into the new storage scheme
+
 ## documentation
 i will write one when i have time and put comments in my code\
 this is because in 3 weeks i'm gonna have my exams, after that i will be a bit more active
