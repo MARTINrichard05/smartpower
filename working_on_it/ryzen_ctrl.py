@@ -97,3 +97,7 @@ def set(data, value):  # all in MHz
             return 1
     else:
         return 2
+def ryzenadj_info():
+    output = subprocess.check_output(['ryzenadj -i'], shell=True,
+                                        text=True)
+    return output

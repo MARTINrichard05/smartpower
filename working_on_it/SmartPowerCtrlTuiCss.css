@@ -1,0 +1,28 @@
+Datatables {
+    layout: vertical;
+    background: $boost;
+    height: 20;
+    margin: 1;
+    min-width: 50;
+    padding: 1;
+}
+
+
+.buttons {
+    width: 100%;
+    height: auto;
+    align: right top;
+    layout: vertical;
+    padding: 1;
+}
+Simpledisplay{
+    height: auto;
+}
+
+.datatable{
+    align: center top;
+    width: 100%;
+    layout: grid;
+    grid-size: 2;
+    grid-columns: 18fr 2fr;
+}

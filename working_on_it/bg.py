@@ -15,9 +15,9 @@ max_read_retry = 10  # TOddo: IMPLEMENT SOMETHING TO PAUSE AND UNPAUSE TASKS WIT
 class Main:
     def __init__(self):
         self.storage = {'data': {}, 'custom_processes': {}, 'modes': {}}
-        self.listener = Listener(address, authkey=b'eogn68rb8r69')
         self.path = str(pathlib.Path(__file__).parent.resolve()) + '/'
         self.readcfg()
+        self.listener = Listener((self.storage['listener']['connection']['adress'],self.storage['listener']['connection']['port']), authkey=bytes(self.storage['listener']['connection']['authkey'], 'ascii'))
         self.storage['data']['etc']['nbcpu'] = self.detectcpu()
 
         self.readinfo('full')
@@ -47,6 +47,7 @@ class Main:
                 conn = self.listener.accept()
                 while True:
                     msg = conn.recv()
+                    print(msg)
 
                     # do something with msg
                     if msg == 'close':
@@ -108,6 +109,8 @@ class Main:
                                 conn.send(e)
                         elif tempdata[0] == 'state':
                             conn.send(self.storage)
+                        elif tempdata[0] == 'ryzenadj':
+                            conn.send(rz.ryzenadj_info())
 
                 self.listener.close()
             except:
@@ -236,7 +239,6 @@ class Main:
              before = time.time()
              time.sleep(10)
              after = time.time()
-             print("checking if sleep")
              if (after - before) > 12:
                 print("sleeped")
                 rz.set('temp', int(self.storage['data']['tmp']['current']))
