@@ -22,7 +22,7 @@ this project is in beta state , while it might work, it is not 100% bug-free cer
 - `cpupower` package (preinstalled on most distros)
 - `ryzenadj` if you have a ryzen cpu on a laptop , you have to install it for having the best experience
 ## usage
-use `SmartPowerCtrl.py` , the daemon is started automatically
+use `SmartPowerCtrl.py` for command line, `SmartPowerCtrlTui.py` to use a Tui(first release), the daemon is started automatically
 ### install
 just run install.sh as root and when the service is loaded hit ctrl+C (it will be stuck)
 ### update
