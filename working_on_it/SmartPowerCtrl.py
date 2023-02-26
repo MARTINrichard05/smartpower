@@ -85,7 +85,7 @@ if len(command) > 1 :
 
         if conn.recv() == 'ready':
             conn.send(command[2])
-            print('sent tdp ratio')
+            print('sent mode name')
 
         if conn.recv() == 'ready1':
             conn.send(command[3])

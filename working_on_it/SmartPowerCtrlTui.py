@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import time
 from time import monotonic
 
 from multiprocessing.connection import Client, Listener
@@ -12,14 +13,31 @@ from textual.reactive import reactive
 import json
 import subprocess
 import os
+from time import sleep
 
-class Simpledisplay(Static):
-    """A widget to display elapsed time."""
+#class Simpledisplay(Static):
+#    """A widget to display elapsed time."""
 
+class Infos(Static):
+    def on_mount(self) -> None:
+        self.text_log = self.query_one(TextLog)
 
+    def on_button_pressed(self, event: Button.Pressed):
+        button_id = event.button.id
+        if button_id == "refresh_button":
+            self.reload()
+    def reload(self):
+        conn.send('ryzenadj')
+        infos = str(conn.recv())
+        infos = infos.split('\n')
+        self.text_log.write(infos[6])
+        self.text_log.write(infos[7])
+        self.text_log.write(infos[24])
+        self.text_log.write(infos[25])
+    def compose(self) -> ComposeResult:
+        yield Container(TextLog(classes='infotext'),Button('refresh', id='refresh_button'), classes='info')
 
 class Datatables(Static):
-
 
     def on_mount(self) -> None:
         self.selected_mode = []
@@ -118,10 +136,10 @@ class Datatables(Static):
 
     def compose(self) -> ComposeResult:
         #yield Container(, classes= 'buttons')
-        yield Container(DataTable(), Container( Button("refresh", id='refresh_button'), Button("set current", id='send_button'), classes='buttons'), classes= 'datatable')
-        yield Container(TextLog(), Container(Button("codes help", id='help_codes_button'), Button("clear", id='clear_button'), classes='buttons'), classes= 'log')
-        yield Container(Label("select a value to edit, press enter to confirm"), Input(placeholder="enter new value"), classes='edit')
-        yield Container(Button('new preset', id='new_preset_button'), Button('delete', id='delete_preset_button'), classes='edit')
+        yield DataTable(classes= 'datatable')
+        yield Container(TextLog(), classes= 'log')
+        yield Container(Input(placeholder="enter new value", classes='margin'),Container( Button('new preset', id='new_preset_button', classes='margin', variant="success"), Button('delete', id='delete_preset_button', classes='margin', variant="error"), Button("codes help", id='help_codes_button', classes='margin', variant="primary"), Button("clear", id='clear_button', classes='margin', variant="error"), Button("refresh", id='refresh_button', variant="primary", classes='margin'), Button("set current", id='send_button', variant="success", classes='margin'), classes='edit3'), classes='edit2')
+        #yield Container(Button('new preset', id='new_preset_button', classes='blue'), Button('delete', id='delete_preset_button', classes='red'), classes='edit')
 
 
 class SmartPowerCtrlTui(App):
@@ -132,7 +150,7 @@ class SmartPowerCtrlTui(App):
         """Create child widgets for the app."""
         yield Header()
         yield Footer()
-        yield Container(Datatables())
+        yield Container(Datatables(), Infos())
 
     def action_toggle_dark(self) -> None:
         """An action to toggle dark mode."""
