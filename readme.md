@@ -11,8 +11,10 @@ it is an python script that control the cpu power in a 'smart' way, depending on
 this way, you save power with the minimal performance impact, designed for ryzen on laptops, no plan to support gpu power features\
 i am using it on my aura 15 gen 2 with a r7 5700u, working great
 
-## Warning !
-this project is in beta state , while it might work, it is not 100% bug-free certified
+## CURRENT STATE
+until 22 march, i will be busy (exams) , after that i will start a big rewrite of my code , the current TUI kinda just works, bg.py is ... unreadable for any normal human (even me) ....\
+when the rewrite will be finished, i will maybe change the name of the project(find something better), until that, i will check sometimes my github page but there will be no update/patches until that, sorrry
+i saw that the ryzen-controller team moved to AATU (amd apu tuning utility), btw , it does not support linux(kinda sad) , this is why i will try to reimplement all their features (or most of) 
 ## support
  i d'ont guarantee you that i will help you but if there is any problem or question, just go to the issues section and ask for help, i will respond when i have time
 
@@ -30,8 +32,7 @@ just run update.sh as root and when the service is loaded hit ctrl+C (it will be
 to update from version before beta 6 to beta 6 or upper you have to run `update_configs.py` too as root to keep your settings and put them into the new storage scheme
 
 ## documentation
-i will write one when i have time and put comments in my code\
-this is because in 3 weeks i'm gonna have my exams, after that i will be a bit more active
+i will write one when i have time and put comments in my code
 
 ## license
 you can use my code in your project, just mention me in the credits, thanks
