@@ -1,0 +1,87 @@
+Datatables {
+    layout: vertical;
+    background: $boost;
+    height: 80%;
+    margin: 1;
+    width: 100%;
+    padding: 1;
+}
+
+Infos {
+    layout: horizontal;
+    background: $boost;
+    height: 6;
+    margin: 1;
+    width: 100%;
+    padding: 1;
+}
+
+
+.buttons {
+    width: 100%;
+    height: auto;
+    align: center top;
+    layout: vertical;
+    padding: 1;
+}
+Simpledisplay{
+    height: auto;
+}
+
+.log{
+    margin: 1;
+    layout: grid;
+    grid-size: 2;
+    grid-columns: 11fr 2fr;
+    align: center top;
+    height: 5;
+}
+
+.datatable{
+    width: 92;
+    height: 45%;
+}
+.edit{
+    margin: 1;
+    align: center top;
+}
+.red{
+    color: black;
+    background: $error;
+}
+.blue{
+    color: black;
+    background: darkcyan;
+}
+.green{
+    color: black;
+    background: $success;
+}
+.gray{
+    color: black;
+    background: darkgray;
+}
+.edit2{
+    layout: grid;
+    grid-size: 2;
+    grid-columns: 1fr 1fr;
+    height: 15;
+}
+.edit3{
+    layout: horizontal;
+    height: 100%;
+}
+.info{
+    layout: grid;
+    grid-size: 2;
+    grid-columns: 3fr 1fr;
+    height: 100%;
+    width: 100%;
+}
+.infotext{
+    width: 100%;
+}
+.margin{
+    margin: 1;
+    height: 10%;
+}

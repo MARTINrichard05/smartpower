@@ -1,0 +1,38 @@
+.main_container{
+    layout: horizontal;
+    align: left top;
+    height: 100%;
+    width: 100%;
+}
+TableModes{
+    margin: 1;
+    align: left top;
+    height: auto;
+}
+infos{
+    width: 100;
+    align: center top;
+}
+UserInput{
+    width: 30%;
+    align: center top;
+}
+edit_box{
+    align: center top;
+}
+button{
+    layout: vertical;
+}
+button_widget{
+    layout: vertical;
+    height: auto;
+    width: auto;
+}
+.display{
+    height: auto;
+    width: auto;
+}
+.MData{
+    width: auto;
+    height: auto;
+}
