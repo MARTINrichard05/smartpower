@@ -8,7 +8,7 @@ import pathlib
 import subprocess
 
 user = subprocess.check_output(['whoami'], shell=True,  text=True).split('\n')[0]
-path = '/home/'+user+'/.config/smartpower/'
+path = '/home/'+user+'/.config/SmartRyzenManager/'
 storage = {}
 
 def readcfg():
@@ -24,7 +24,7 @@ try :
 except:
     print('creating config file')
     storage = {'connection' : {'adress': 'localhost', 'port' : 6000, 'authkey' : 'eogn68rb8r69'},}
-    os.system('mkdir ~/.config/smartpower')
+    os.system('mkdir ~/.config/SmartRyzenManager')
     writecfg(storage)
 
 conn = Client((storage['connection']['adress'], storage['connection']['port']), authkey=bytes(storage['connection']['authkey'], 'ascii'))
@@ -32,7 +32,7 @@ conn = Client((storage['connection']['adress'], storage['connection']['port']), 
 command = sys.argv
 if len(command) > 1 :
     if command[1] == 'help':
-        print('A way to interact without root privileges with my smartpower daemon')
+        print('A way to interact without root privileges with my SmartRyzenManager daemon')
         print(' list of commands available:')
         print('mode      : use mode + arg to set it')
         print('       turbo  : turn all up to get maximum power (all *ratio , up to the cap)')

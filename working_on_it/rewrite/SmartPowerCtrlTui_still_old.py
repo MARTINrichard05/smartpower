@@ -164,7 +164,7 @@ class SmartPowerCtrlTui(App):
 if __name__ == "__main__":
 
     user = subprocess.check_output(['whoami'], shell=True, text=True).split('\n')[0]
-    path = '/home/' + user + '/.config/smartpower/'
+    path = '/home/' + user + '/.config/SmartRyzenManager/'
     storage = {}
 
 
@@ -182,7 +182,7 @@ if __name__ == "__main__":
         storage = readcfg()
     except:
         storage = {'connection': {'adress': 'localhost', 'port': 6000, 'authkey': 'eogn68rb8r69'}, }
-        os.system('mkdir ~/.config/smartpower')
+        os.system('mkdir ~/.config/SmartRyzenManager')
         writecfg()
 
     conn = Client((storage['connection']['adress'], storage['connection']['port']),

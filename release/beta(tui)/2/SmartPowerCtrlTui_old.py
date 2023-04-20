@@ -34,13 +34,13 @@ class connection:
         self.Listener = Listener('localhost', 6001, authkey=bytes(str(key), 'ascii'))
         self.storage = {}
         user = subprocess.check_output(['whoami'], shell=True, text=True).split('\n')[0]
-        self.path = '/home/' + user + '/.config/smartpower/'
+        self.path = '/home/' + user + '/.config/SmartRyzenManager/'
 
         try:
             self.readcfg()
         except:
             self.storage = {'connection': {'adress': 'localhost', 'port': 6000, 'authkey': 'eogn68rb8r69'}, }
-            os.system('mkdir ~/.config/smartpower')
+            os.system('mkdir ~/.config/SmartRyzenManager')
             self.writecfg()
         self.connection()
 

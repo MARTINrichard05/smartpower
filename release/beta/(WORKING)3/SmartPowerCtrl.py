@@ -10,7 +10,7 @@ conn = Client(address, authkey=b'eogn68rb8r69')
 
 command = sys.argv
 if command[1] == 'help':
-    print('A way to interact without root privileges with my smartpower daemon')
+    print('A way to interact without root privileges with my SmartRyzenManager daemon')
     print(' list of commands available:')
     print('mode : use mode + arg to set it')
     print('       turbo : turn all up to get maximum power (all *ratio , up to the cap)')

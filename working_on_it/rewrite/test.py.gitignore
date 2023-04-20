@@ -1,10 +1,37 @@
-import requests
-data = {
-    'url': 'https://audd.tech/example.mp3',
-    'return': 'apple_music,spotify',
-    'api_token': 'test'
-}
-result = requests.post('https://api.audd.io/', data=data)
-print(result.text)
+import time
+from threading import Thread
+class Printer:
+    def __int__(self):
+        pass
+    def Main(self):
+        global text
+        while True:
+            text = 'something'
+            time.sleep(2)
+            text = 'idk'
+            time.sleep(2)
+class change:
+    def __int__(self):
+        pass
+    def Main(self):
+        global text
+        self.text = text
+        while True:
+            print(self.text)
+            time.sleep(0.5)
 
-(151*200³-278³(151-7))/12
+def runChange():
+    a = change()
+    a.Main()
+def runPrinter():
+    b = Printer()
+    b.Main()
+
+text = 'nothing'
+print(text)
+a = Thread(target=runPrinter)
+b = Thread(target=runChange)
+a.start()
+b.start()
+a.join()
+b.join()

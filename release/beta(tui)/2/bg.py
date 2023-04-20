@@ -269,6 +269,8 @@ class Main:
                 print("sleeped")
                 rz.set('temp', int(self.storage['data']['tmp']['current']))
                 rz.set('tdp', int(self.storage['data']['tdp']['current']))
+             rz.set('temp', int(self.storage['data']['tmp']['current']))
+             rz.set('tdp', int(self.storage['data']['tdp']['current']))
 
 
     def main(self):
