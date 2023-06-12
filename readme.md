@@ -11,11 +11,10 @@ it is an python script that control the cpu power in a 'smart' way, depending on
 this way, you save power with the minimal performance impact, designed for ryzen on laptops, no plan to support gpu power features\
 i am using it on my aura 15 gen 2 with a r7 5700u, working great
 
-## CURRENT STATE
-I am completly rewriting the program, this might take some time. I am very busy, it might take maybe a year. 
+## CURRENT STATE DISCONTINUED
+Discontinued, i am workin on something similar but newer, cleaner, simpler
 ## support
-I d'ont guarantee you that i will help you but if there is any problem or question, just go to the issues section and ask for help\
-If it crashes , check for missing python libs.
+No more support
 
 ## requirements
 - a ryzen cpu(no plans to support intels cpu)
